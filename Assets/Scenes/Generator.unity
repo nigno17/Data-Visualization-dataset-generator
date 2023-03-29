@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa77fa0daea6174f8f66ffbab39a4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screensFolderName: C:/Users/Nigno17/Documents/Datasets/ProvaDV/train
-  intensityLev: {x: 0.5, y: 1.5}
+  screensFolderName: C:/Users/Nigno17/Documents/Datasets/ProvaDV/prova
+  intensityLev: {x: 0.5, y: 5}
   isColorRandomized: 1
   useSkyBoxRandomization: 1
 --- !u!1 &543422509
@@ -323,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &543422510
 MonoBehaviour:
   m_ObjectHideFlags: 0

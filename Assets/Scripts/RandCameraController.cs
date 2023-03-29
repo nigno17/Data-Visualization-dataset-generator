@@ -6,31 +6,30 @@ using System.IO;
 public class RandCameraController : MonoBehaviour
 {
     private Randomizer_controller randomizer;
-    private Vector3 shiftVector = Vector3.up * 0.0f;
     private Vector3 cameraTarget;
     private bool randFlag;
     [Header("Z distance of the camera from the subject. (min, max)")]
     [Space(5)]
     [Tooltip("x: min, y: max")]
-    [SerializeField] Vector2 distance = new Vector2 (5.0f, 10.0f);
+    public Vector2 distance = new Vector2 (5.0f, 10.0f);
     [Space(10)]
 
     [Header("Camera pitch in degrees (wrt the target point). (min, max)")]
     [Space(5)]
     [Tooltip("x: min, y: max")]
-    [SerializeField] Vector2 pitch = new Vector2 (0.0f, 30.0f);
+    public Vector2 pitch = new Vector2 (0.0f, 30.0f);
     [Space(10)]
 
     [Header("Camera yaw in degrees (wrt the target point). (min, max)")]
     [Space(5)]
     [Tooltip("x: min, y: max")]
-    [SerializeField] Vector2 yaw = new Vector2 (-30.0f, 30.0f);
+    public Vector2 yaw = new Vector2 (-30.0f, 30.0f);
     [Space(10)]
 
     [Header("Saved frames resolution. (width, height)")]
     [Space(5)]
     [Tooltip("x: width, y: height")]
-    [SerializeField] Vector2Int resolution = new Vector2Int (800, 450);
+    public Vector2Int resolution = new Vector2Int (800, 450);
 
     // Start is called before the first frame update
     void Start()
@@ -46,22 +45,16 @@ public class RandCameraController : MonoBehaviour
         RenderTexture mRt = new RenderTexture(Cam.targetTexture.width, Cam.targetTexture.height, Cam.targetTexture.depth, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
         mRt.antiAliasing = Cam.targetTexture.antiAliasing;
         Cam.targetTexture = mRt;
-        //DestroyImmediate(mRt);
     }
 
     void Update()
     {
         Vector3 modelPosition = Vector3.zero;
-        // if(randomizer.getModel() != null)
-        //     modelPosition = randomizer.getModel().transform.position;
-        //     cameraTarget = modelPosition + shiftVector;
         if(randFlag)
         {
             if(randomizer.getModel() != null)
                 modelPosition = randomizer.getModel().transform.position;
-                Debug.Log(modelPosition);
-                cameraTarget = modelPosition + shiftVector;
-                Debug.Log(cameraTarget);
+                cameraTarget = modelPosition;
 
             transform.position = new Vector3(0.0f, 0.0f, Random.Range(distance[0], distance[1])) + modelPosition;
             transform.RotateAround(cameraTarget, Vector3.up, Random.Range(yaw[0], yaw[1]));
@@ -86,7 +79,6 @@ public class RandCameraController : MonoBehaviour
     {
         Camera Cam = GetComponent<Camera>();
         RenderTexture rt = new RenderTexture(new RenderTextureDescriptor(newResolution[0], newResolution[1]));
-        //RenderTexture rt = new RenderTexture(new RenderTextureDescriptor(1920, 1080));
         Cam.targetTexture = rt;
     }
 
@@ -157,27 +149,16 @@ public class RandCameraController : MonoBehaviour
         Camera Cam = GetComponent<Camera>();
  
         RenderTexture currentRT = RenderTexture.active;
-        //RenderTexture currentTT = Cam.targetTexture;
-        // Nuova modifica per la luminosita (sRGB)
-        // RenderTexture mRt = new RenderTexture(Cam.targetTexture.width, Cam.targetTexture.height, Cam.targetTexture.depth, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
-        // mRt.antiAliasing = Cam.targetTexture.antiAliasing;
-        // Cam.targetTexture = mRt;
-        // Fine modifica
         RenderTexture.active = Cam.targetTexture;
 
- 
         Cam.Render();
  
-        // Texture2D Image = new Texture2D(Cam.targetTexture.width, Cam.targetTexture.height, TextureFormat.ARGB32, false);
         Texture2D Image = new Texture2D(Cam.targetTexture.width, Cam.targetTexture.height, TextureFormat.RGBA64, false);
         Image.ReadPixels(new Rect(0, 0, Cam.targetTexture.width, Cam.targetTexture.height), 0, 0);
-        Image.Apply();
         RenderTexture.active = currentRT;
-        //Cam.targetTexture = currentTT;
  
         var Bytes = Image.EncodeToPNG();
         DestroyImmediate(Image);
-        //DestroyImmediate(mRt);
  
         return Bytes;
     }

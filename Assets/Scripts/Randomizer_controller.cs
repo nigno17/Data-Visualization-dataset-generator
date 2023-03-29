@@ -22,20 +22,20 @@ namespace UnityEngine
 
         [Header("Folder where the dataset will be saved")]
         [Space(5)]
-        [SerializeField] string screensFolderName = "";
+        public string screensFolderName = "";
         [Space(10)]
 
         [Header("Directional light")]
         [Space(5)]
         [Tooltip("x: min, y: max")]
-        [SerializeField] Vector2 intensityLev = new Vector2 (0.5f, 1.5f);
+        public Vector2 intensityLev = new Vector2 (0.5f, 1.5f);
         
         [Space(5)]
         [Tooltip("flag to decide if the directional light color is going to be randomized")]
-        [SerializeField] bool isColorRandomized = true;
+        public bool isColorRandomized = true;
         [Space(5)]
         [Tooltip("flag to decide if the skybox is going to be randomized")]
-        [SerializeField] bool useSkyBoxRandomization = false;
+        public bool useSkyBoxRandomization = false;
         
         
 
@@ -70,8 +70,7 @@ namespace UnityEngine
 
         void Update()
         {
-            if (isRecording)
-                randomizerUpdate();
+            randomizerUpdate();
         }
         void LateUpdate()
         {
@@ -104,7 +103,6 @@ namespace UnityEngine
 
         void saveOnDisk()
         {
-             // Debug.Log(Directory.Exists("Assets"));
             string folderName = screensFolderName + "/" + modelList[modelCounter].name + "/";
             if(Directory.Exists(folderName) == false)
             {
