@@ -42,8 +42,8 @@ namespace UnityEngine
         // Start is called before the first frame updateprivate static Random rng = new Random();  
         void Start()
         {
-            Time.fixedDeltaTime = 0.01f;
-            Time.maximumDeltaTime = 0.01f;
+            // Time.fixedDeltaTime = 0.01f;
+            // Time.maximumDeltaTime = 0.01f;
 
             isRecording = true;
 
