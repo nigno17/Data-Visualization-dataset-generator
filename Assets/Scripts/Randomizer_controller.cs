@@ -16,7 +16,6 @@ namespace UnityEngine
         private int skyMaterialCounter;
         private int modelMaterialCounter;
         private RandCameraController mainCameraController;
-        private string tempFolderName;
         private bool isRecording;
     
 
@@ -54,7 +53,6 @@ namespace UnityEngine
             skyMaterialCounter = -1;
             modelMaterialCounter = -1;
             modelMaterialCounter = -1;
-            tempFolderName = "";
 
             modelList = Resources.LoadAll("Models", typeof(GameObject));
             skyMaterialList = Resources.LoadAll("HDRIHaven/Materials", typeof(Material));
@@ -96,9 +94,6 @@ namespace UnityEngine
             tempLight.intensity = Random.Range(intensityLev[0], intensityLev[1]);
             if (isColorRandomized)
                 tempLight.color = Random.ColorHSV();
-
-
-            mainCameraController.setRandFlag(true);
         }
 
         void saveOnDisk()
